@@ -1,10 +1,10 @@
 import React from 'react';
 
-export const Input = ({label, className='', placeholder=''}) => {
+export const Input = ({label, className='', placeholder='', handleChange, name}) => {
     return (
         <div className={`input ${className}`}>
             {label && <label htmlFor="">{label}</label>}
-            <input  type="text" placeholder={placeholder}/>
+            <input onChange={handleChange} name={name} type="text" placeholder={placeholder}/>
         </div>
     );
 };

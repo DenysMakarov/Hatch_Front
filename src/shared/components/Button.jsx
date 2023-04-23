@@ -1,9 +1,9 @@
 import React from 'react';
 import '../styles/_shared.components.scss'
 
-export const Button = ({className = ''}) => {
+export const Button = ({className = '', handleClick}) => {
     return (
-        <button className={`btn ${className}`}>ADD</button>
+        <button onClick={handleClick} className={`btn ${className}`}>ADD</button>
     );
 };
 
