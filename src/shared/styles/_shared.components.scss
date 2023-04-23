@@ -1,0 +1,37 @@
+@import "src/shared/styles/def_mixins";
+@import "src/shared/styles/def_variables";
+
+
+.btn {
+  border-radius: 10px;
+  border: 1px solid $base-dark-blue-color;
+  background: $base-dark-blue-color;
+  font-family: $default-font-family;
+  color: #ffffff;
+}
+
+
+.input {
+  //border: 1px solid red;
+  height: 100%;
+  padding: 0;
+
+  & input {
+    //height: 100%;
+    border: 1px solid $base-dark-blue-color;
+    border-radius: 7px;
+    color: $base-dark-blue-color;
+    padding: 5px 10px;
+    font-family: $default-font-family;
+    box-sizing: border-box;
+
+    &:focus {
+      outline-width: 2px;
+      outline-color: $base-dark-blue-color;
+    }
+  }
+}
+
+.remove_btn{
+
+}

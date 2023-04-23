@@ -1,0 +1,163 @@
+@import 'src/shared/styles/def_mixins';
+@import 'src/shared/styles/def_variables';
+@import "keyframes";
+
+.wrapper {
+  width: 50vw;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  padding: 40px 50px;
+  @include default-box-shadow;
+  border-radius: $default-border-radius;
+  position: relative;
+
+  & .remove-all {
+    position: absolute;
+    top: 8%;
+    right: 7%;
+    width: 165px;
+    height: 25px;
+    padding: 3px;
+    display: flex;
+
+    &:hover .remove-text{
+      opacity: 1;
+      left: 0;
+    }
+
+    & .remove-btn {
+      position: absolute;
+      fill: $base-dark-blue-color;
+      width: 15%;
+      height: 100%;
+      right: 0;
+      cursor: pointer;
+    }
+
+    & .remove-text {
+      transition: .3s;
+      position: absolute;
+      opacity: 0;
+      font-size: 13px;
+      top: -7px;
+      left: -50%;
+      border: 1px solid $base-dark-blue-color;
+      border-radius: 5px;
+      padding: 4px 6px;
+      border-right: none;
+      border-bottom-right-radius: 0px;
+      border-top-right-radius: 0px;
+      color: $base-red;
+    }
+  }
+
+
+  & .title {
+    text-align: left;
+    color: $base-dark-blue-color;
+    //border: 1px solid red;
+    margin: 0;
+    height: 14%;
+  }
+
+  & .input-block {
+    //border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+    height: 35px;
+    box-sizing: border-box;
+    //margin-top: 1%;
+
+    & input {
+      height: 100%;
+      width: 100%;
+    }
+
+    & div {
+      display: flex;
+      position: relative;
+
+      & .btn {
+        margin-left: 15px;
+        height: 100%;
+        width: 100px;
+      }
+    }
+  }
+
+  & .todo-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    //border: 1px solid red;
+    width: 100%;
+    min-height: 65%;
+    box-sizing: border-box;
+
+    & .todo {
+      width: 45%;
+      height: 100%;
+      border-radius: $default-border-radius;
+      @include default-box-shadow;
+      overflow: hidden;
+      //border: 1px solid red;
+
+      & .title {
+        width: 100%;
+        height: 13%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        background: $base-dark-blue-color;
+      }
+
+      & .content-wrapper {
+        box-sizing: border-box;
+        padding: 20px;
+        height: 83%;
+        text-align: start;
+        overflow: hidden;
+
+
+        & .content {
+          height: 100%;
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            width: 5px;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: $base-dark-blue-color;
+            border-radius: 10px;
+          }
+
+          & .todo-row, div {
+            padding: 10px;
+            //border: 1px solid red;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            & input {
+              display: none;
+            }
+
+            & div {
+              padding: 0;
+
+              & label {
+                margin-left: 8px;
+              }
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
+
