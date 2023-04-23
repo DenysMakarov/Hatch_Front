@@ -20,8 +20,9 @@ export const addTodo = async (todo) => {
 }
 
 export const toggleTodo = async (id) => {
+    console.log(id)
     try {
-        return axios.post(`${BASE_URL}/api/todo/${id}/done`).then(res => res.data)
+        return axios.put(`${BASE_URL}/api/todo/${id}/done`).then(res => res.data)
     } catch (err) {
         console.error(err)
     }

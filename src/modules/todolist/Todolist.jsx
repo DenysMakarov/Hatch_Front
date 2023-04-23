@@ -5,7 +5,7 @@ import {Button} from "../../shared/components/Button";
 import Todo from "./components/Todo";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useDispatch, useSelector} from "react-redux";
-import {addTodoAction, deleteAllTodosAction, getTodosAction} from "../../store/actions/todoActions";
+import {addTodoAction, deleteAllTodosAction, getTodosAction, toggleTodoAction} from "../../store/actions/todoActions";
 import {useTodos} from "./hooks/useTodos";
 import {addTodo, deleteAllTodos} from "./service/service";
 
@@ -42,6 +42,10 @@ export const Todolist = () => {
     const handleClickTodo = () => {
         dispatch(addTodoAction(todo))
     }
+
+    // const toggleTodoAction = () => {
+    //     dispatch(addTodoAction(id))
+    // }
 
     return (
         <div className={`wrapper`}>

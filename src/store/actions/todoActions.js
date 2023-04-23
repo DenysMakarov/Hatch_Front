@@ -28,6 +28,10 @@ export const toggleTodoAction = (id) => ({
     payload: id
 })
 
+export const TestAction = () => ({
+    type: TOGGLE_TODO,
+})
+
 export const setUndoneTodosAction = (payload) => ({
     type: SET_UNDONE_TODOS,
     payload
