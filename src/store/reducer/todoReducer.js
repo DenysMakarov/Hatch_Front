@@ -1,11 +1,4 @@
-import {
-    DELETE_ALL_TODOS,
-    DELETE_TODO_BY_ID,
-    GET_TODOS,
-    SET_ALL_TODOS,
-    SET_DONE_TODOS,
-    SET_UNDONE_TODOS
-} from "../constants/constants";
+import {SET_ALL_TODOS} from "../constants/constants";
 
 
 const initialState = {

@@ -5,9 +5,9 @@ import {Button} from "../../shared/components/Button";
 import Todo from "./components/Todo";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useDispatch, useSelector} from "react-redux";
-import {addTodoAction, deleteAllTodosAction, getTodosAction, toggleTodoAction} from "../../store/actions/todoActions";
-import {useTodos} from "./hooks/useTodos";
-import {addTodo, deleteAllTodos} from "./service/service";
+import {addTodoAction, deleteAllTodosAction, getTodosAction} from "../../store/actions/todoActions";
+import {findObjectByProperty} from "../../shared/utils/utils";
+
 
 // const {todos: {doneTodos, undoneTodos}, loading, error} = useTodos()
 /*
@@ -17,6 +17,7 @@ export const Todolist = () => {
 
     const [todo, setTodo] = useState({title: '', done: false})
     const {doneTodos, undoneTodos} = useSelector(store => store.todoReducer)
+    const [searchText, setSearchText] = useState('')
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -24,16 +25,18 @@ export const Todolist = () => {
     }, [])
 
     const handleChangeTodo = (e) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setTodo({
             ...todo,
             [name]: value
         })
     }
 
+
     // useEffect(() => {
-    //     console.log(doneTodos)
-    // }, [doneTodos])
+    //     // console.log(searchText)
+    //     // findObjectByProperty()
+    // }, [searchText])
 
     const handleDeleteAll = () => {
         dispatch(deleteAllTodosAction());
@@ -43,9 +46,11 @@ export const Todolist = () => {
         dispatch(addTodoAction(todo))
     }
 
-    // const toggleTodoAction = () => {
-    //     dispatch(addTodoAction(id))
-    // }
+    const handleSearchTodo = (e) => {
+        const {value} = e.target;
+        setSearchText(value)
+    }
+
 
     return (
         <div className={`wrapper`}>
@@ -55,19 +60,17 @@ export const Todolist = () => {
                     <Input handleChange={handleChangeTodo} name={`title`}/>
                     <Button handleClick={handleClickTodo}/>
                 </div>
-                <Input placeholder={'search'}/>
+                <Input placeholder={'search'} handleChange={handleSearchTodo}/>
             </div>
             <div className={`todo-wrapper`}>
-                <Todo title={`To Do`} arr={undoneTodos}/>
-                <Todo title={`Done`} arr={doneTodos} done={true}/>
+                <Todo title={`To Do`} arr={undoneTodos} searchText={searchText}/>
+                <Todo title={`Done`} arr={doneTodos} done={true} searchText={searchText}/>
             </div>
 
             <div className={`remove-all`}>
                 <p className={`remove-text`}>DELETE ALL TASKS</p>
                 <RiDeleteBin6Line className={`remove-btn`} onClick={handleDeleteAll}/>
             </div>
-
-            <button >TEST</button>
         </div>
     );
 };

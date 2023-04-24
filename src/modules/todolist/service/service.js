@@ -20,9 +20,16 @@ export const addTodo = async (todo) => {
 }
 
 export const toggleTodo = async (id) => {
-    console.log(id)
     try {
         return axios.put(`${BASE_URL}/api/todo/${id}/done`).then(res => res.data)
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+export const updateTitleTodo = async (id, title) => {
+    try {
+        return axios.put(`${BASE_URL}/api/todo/${id}/update`, {title}).then(res => res.data)
     } catch (err) {
         console.error(err)
     }

@@ -4,8 +4,8 @@ import {
     DELETE_TODO_BY_ID,
     GET_TODOS,
     SET_ALL_TODOS,
-    SET_DONE_TODOS,
-    SET_UNDONE_TODOS, TOGGLE_TODO
+    TOGGLE_TODO,
+    UPDATE_TITLE_TODO
 } from "../constants/constants";
 
 export const getTodosAction = () => ({
@@ -28,13 +28,9 @@ export const toggleTodoAction = (id) => ({
     payload: id
 })
 
-export const TestAction = () => ({
-    type: TOGGLE_TODO,
-})
-
-export const setUndoneTodosAction = (payload) => ({
-    type: SET_UNDONE_TODOS,
-    payload
+export const updateTodoAction = (id, title) => ({
+    type: UPDATE_TITLE_TODO,
+    payload: {id, title}
 })
 
 export const deleteAllTodosAction = () => ({

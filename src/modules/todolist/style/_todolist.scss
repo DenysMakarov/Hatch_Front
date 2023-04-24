@@ -142,8 +142,14 @@
             justify-content: space-between;
             align-items: center;
 
-            & input {
+            & input[type='checkbox'] {
               display: none;
+            }
+
+            & .input-update{
+              height: 12px;
+              margin-left: 5px;
+              color: grey;
             }
 
             & div {
@@ -151,6 +157,18 @@
 
               & label {
                 margin-left: 8px;
+              }
+
+              & .title-update-icon, .save-update-icon{
+                margin-right: .5rem;
+                cursor: pointer;
+                width: 35%;
+                height: 35%;
+              }
+
+              & .save-update-icon{
+                width: 40%;
+                height: 40%;
               }
             }
           }
