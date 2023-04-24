@@ -3,7 +3,8 @@ import {SET_ALL_TODOS} from "../constants/constants";
 
 const initialState = {
     doneTodos: [],
-    undoneTodos: []
+    undoneTodos: [],
+    loading: true
 }
 export const todoReducer = (state=initialState, {type, payload}) => {
     switch (type){

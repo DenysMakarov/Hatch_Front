@@ -3,10 +3,11 @@
 @import "keyframes";
 
 .wrapper {
-  width: 50vw;
-  height: 60vh;
+  width: 70vw;
+  height: 75vh;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 5%;
   padding: 40px 50px;
   @include default-box-shadow;
@@ -16,7 +17,7 @@
   & .remove-all {
     position: absolute;
     top: 8%;
-    right: 7%;
+    right: 4.4%;
     width: 165px;
     height: 25px;
     padding: 3px;
@@ -34,6 +35,13 @@
       height: 100%;
       right: 0;
       cursor: pointer;
+
+      &:hover{
+        animation-name: strip;
+        animation-fill-mode: forwards;
+        animation-duration: .8s;
+        fill: #de5246;
+      }
     }
 
     & .remove-text {
@@ -83,6 +91,13 @@
         margin-left: 15px;
         height: 100%;
         width: 100px;
+        cursor: pointer;
+        animation-duration: .8s;
+        animation-fill-mode: forwards;
+
+        &:hover{
+          animation-name: strip;
+        }
       }
     }
   }
@@ -91,9 +106,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    //border: 1px solid red;
     width: 100%;
-    min-height: 65%;
+    min-height: 81%;
     box-sizing: border-box;
 
     & .todo {
@@ -102,7 +116,6 @@
       border-radius: $default-border-radius;
       @include default-box-shadow;
       overflow: hidden;
-      //border: 1px solid red;
 
       & .title {
         width: 100%;
@@ -116,7 +129,7 @@
 
       & .content-wrapper {
         box-sizing: border-box;
-        padding: 20px;
+        //padding: 20px;
         height: 83%;
         text-align: start;
         overflow: hidden;
@@ -128,28 +141,53 @@
 
           &::-webkit-scrollbar {
             width: 5px;
+            position: absolute;
+            right: 10px;
           }
 
           &::-webkit-scrollbar-thumb {
             background: $base-dark-blue-color;
             border-radius: 10px;
+            width: 5px!important;
+          }
+
+          & .light-row{
+
+          }
+
+          & .gray-row{
+            background: $base-light-gray-color;
           }
 
           & .todo-row, div {
-            padding: 10px;
-            //border: 1px solid red;
+            padding: 15px 20px;
+            font-size: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+
+            @media screen and (max-height: 800px) {
+              padding: 10px 20px;
+              font-size: 17px;
+            }
 
             & input[type='checkbox'] {
               display: none;
             }
 
             & .input-update{
-              height: 12px;
+              height: 19px;
+              font-size: 1em;
               margin-left: 5px;
               color: grey;
+              outline: none;
+              border-radius: 0;
+              border: none;
+              border-bottom: 2px solid $base-dark-blue-color;
+
+              @media screen and (max-height: 800px) {
+                height: 16px;
+              }
             }
 
             & div {
@@ -162,13 +200,39 @@
               & .title-update-icon, .save-update-icon{
                 margin-right: .5rem;
                 cursor: pointer;
-                width: 35%;
-                height: 35%;
+                &:hover{
+                  fill: peru;
+                }
               }
 
               & .save-update-icon{
-                width: 40%;
-                height: 40%;
+                &:hover{
+                  fill: #84bc36;
+                }
+              }
+
+              & .del-icon{
+                &:hover{
+                  fill: $base-red;
+                }
+              }
+
+              & .calendar-icon{
+                &:hover{
+                  fill: lightskyblue;
+                }
+              }
+
+              & .icon{
+                animation-fill-mode: forwards;
+                animation-duration: .8s;
+                cursor: pointer;
+                width: 20px;
+                height: 20px;
+
+                &:hover{
+                  animation-name: strip;
+                }
               }
             }
           }

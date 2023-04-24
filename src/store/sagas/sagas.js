@@ -1,4 +1,4 @@
-import {all, call, delay, put, select, take, takeEvery, takeLatest} from '@redux-saga/core/effects'
+import {all, call, delay, put, select, take, takeEvery} from '@redux-saga/core/effects'
 import {
     ADD_TODO,
     DELETE_ALL_TODOS,
@@ -20,13 +20,17 @@ import _ from "lodash";
 
 export function* workerSaga() {
     while (true) {
-        const data = yield call(getAllTodos)
-        const state = yield select()
-        const {todoReducer: {doneTodos,undoneTodos}} = state
-        if (JSON.stringify(doneTodos) !== JSON.stringify(data.doneTodos) || JSON.stringify(undoneTodos) !== JSON.stringify(data.undoneTodos)) {
-            yield put(setTodosAction(data))
+        try {
+            const data = yield call(getAllTodos)
+            const state = yield select()
+            const {todoReducer: {doneTodos,undoneTodos, loading}} = state
+            if (JSON.stringify(doneTodos) !== JSON.stringify(data.doneTodos) || JSON.stringify(undoneTodos) !== JSON.stringify(data.undoneTodos)) {
+                yield put(setTodosAction({...data, loading: false}))
+            }
+            yield delay(60000)
+        } catch (err) {
+            console.error(`Error add todos: ${err.message}`);
         }
-        yield delay(60000)
     }
 }
 
@@ -35,12 +39,14 @@ export function* addTodoSaga({payload}) {
         const state = yield select()
         const {todoReducer: {undoneTodos}} = state
         const response = yield call(addTodo, payload);
-        yield put(setTodosAction({
-            ...state,
-            undoneTodos: [...undoneTodos, response].sort((a, b) => a.title.localeCompare(b.title))
-        }));
+        if (response){
+            yield put(setTodosAction({
+                ...state,
+                undoneTodos: [...undoneTodos, response].sort((a, b) => a.title.localeCompare(b.title))
+            }));
+        }
     } catch (error) {
-        console.error(`Error deleting todos: ${error.message}`);
+        console.error(`Error add todos: ${error.message}`);
     }
 }
 
@@ -53,7 +59,7 @@ export function* updateTitleTodoSaga({payload: {id, title}}) {
         todo.title = title
         yield put(setTodosAction({doneTodos, undoneTodos}))
     } catch (error) {
-        console.error(`Error deleting todos: ${error.message}`);
+        console.error(`Error updating todos: ${error.message}`);
     }
 }
 
@@ -83,7 +89,7 @@ export function* toggleTodoSaga({payload}) {
         yield call(toggleTodo, payload);
         yield put(setTodosAction({...state, doneTodos: sortedDoneTodos, undoneTodos: sortedUndoneTodos}));
     } catch (error) {
-        console.error(`Error deleting todos: ${error.message}`);
+        console.error(`Error toggle todos: ${error.message}`);
     }
 }
 

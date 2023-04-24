@@ -1,13 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {BiCalendarAlt, BiCalendarCheck} from "react-icons/bi";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useDispatch} from "react-redux";
 import {deleteTodoByIdAction, toggleTodoAction, updateTodoAction} from "../../../store/actions/todoActions";
 import {SlPencil} from "react-icons/sl";
 import {IoIosSave} from "react-icons/io";
-import {updateTitleTodo} from "../service/service";
 
-const TodoRow = ({todo: {title, id, done}}) => {
+const TodoRow = ({todo: {title, id, done}, idx}) => {
 
     const [newTitle, setNewTitle] = useState(title)
     const [isUpdate, setIsUpdate] = useState(false)
@@ -29,34 +28,34 @@ const TodoRow = ({todo: {title, id, done}}) => {
 
     const saveTitle = () => {
         dispatch(updateTodoAction(id, newTitle))
-        // updateTitleTodo(id, newTitle)
         setIsUpdate(false)
     }
 
     return (
-        <div className={`todo-row`}>
+        <div className={`todo-row ${idx%2!==0 ? 'gray-row' : ''}`}>
             <input type="checkbox" id={`${title}`} name={`${title}`}/>
             <div>
                 {
-                    done ? <BiCalendarCheck onClick={toggleTodo}/> : <BiCalendarAlt onClick={toggleTodo}/>
+                    done ? <BiCalendarCheck onClick={toggleTodo} className={`calendar-icon icon`}/> : <BiCalendarAlt onClick={toggleTodo} className={`calendar-icon icon`}/>
                 }
                 {
                     isUpdate ?
-                        <input type="text" className={`input-update`} onChange={handleChange} value={newTitle}/> :
-                        <label htmlFor={title}>{title}</label>
-                }
+                        <input type="text" className={`input-update ${idx%2!==0 ? 'gray-row' : ''}`} onChange={handleChange} value={newTitle}/> :
+                        <label htmlFor={title}>{title.length > 23 ? `${title.slice(0, 22)}...`: title}</label>
 
+                }
             </div>
             <div className={`btn-options`}>
                 {
                     isUpdate ?
-                        <IoIosSave className={`save-update-icon`} onClick={saveTitle}/> :
-                        <SlPencil className={`title-update-icon`} onClick={() => setIsUpdate(prev => !prev)}/>
+                        <IoIosSave className={`save-update-icon icon`} onClick={saveTitle}/> :
+                        <SlPencil className={`title-update-icon icon`} onClick={() => setIsUpdate(prev => !prev)}/>
                 }
+                <div>
+                    <RiDeleteBin6Line onClick={handleDelete} className={`del-icon icon`}/>
+                </div>
 
-                <RiDeleteBin6Line onClick={handleDelete}/>
             </div>
-
         </div>
     );
 };

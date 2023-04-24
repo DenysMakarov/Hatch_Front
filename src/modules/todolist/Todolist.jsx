@@ -6,23 +6,24 @@ import Todo from "./components/Todo";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useDispatch, useSelector} from "react-redux";
 import {addTodoAction, deleteAllTodosAction, getTodosAction} from "../../store/actions/todoActions";
-import {findObjectByProperty} from "../../shared/utils/utils";
 
 
-// const {todos: {doneTodos, undoneTodos}, loading, error} = useTodos()
 /*
-* ...........
+* ..... hook uesTodos......
 * */
+// const {todos: {doneTodos, undoneTodos}, loading, error} = useTodos()
+
 export const Todolist = () => {
 
     const [todo, setTodo] = useState({title: '', done: false})
-    const {doneTodos, undoneTodos} = useSelector(store => store.todoReducer)
+    const {doneTodos, undoneTodos, loading} = useSelector(store => store.todoReducer)
     const [searchText, setSearchText] = useState('')
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getTodosAction())
     }, [])
+
 
     const handleChangeTodo = (e) => {
         const {name, value} = e.target;
@@ -32,11 +33,6 @@ export const Todolist = () => {
         })
     }
 
-
-    // useEffect(() => {
-    //     // console.log(searchText)
-    //     // findObjectByProperty()
-    // }, [searchText])
 
     const handleDeleteAll = () => {
         dispatch(deleteAllTodosAction());
@@ -64,7 +60,7 @@ export const Todolist = () => {
             </div>
             <div className={`todo-wrapper`}>
                 <Todo title={`To Do`} arr={undoneTodos} searchText={searchText}/>
-                <Todo title={`Done`} arr={doneTodos} done={true} searchText={searchText}/>
+                <Todo title={`Done`} arr={doneTodos.slice(0, 10)} searchText={searchText}/>
             </div>
 
             <div className={`remove-all`}>

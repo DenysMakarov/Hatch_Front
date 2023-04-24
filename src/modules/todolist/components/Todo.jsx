@@ -1,9 +1,12 @@
 import React from 'react';
 import TodoRow from "./TodoRow";
 import {findObjectByProperty} from "../../../shared/utils/utils";
+import Spinner from "../../../shared/components/Spinner";
+import {useSelector} from "react-redux";
 
-const Todo = ({arr=[], className='', title='', done= false, searchText=''}) => {
+const Todo = ({arr=[], className='', title='', searchText=''}) => {
 
+    const {loading} = useSelector(store => store.todoReducer)
     const filteredArr = findObjectByProperty(arr, searchText)
 
     return (
@@ -11,10 +14,11 @@ const Todo = ({arr=[], className='', title='', done= false, searchText=''}) => {
             <div className={`title`}>{title}</div>
             <div className={`content-wrapper`}>
                 <div className={`content`}>
-                    {
-                        filteredArr.map(todo => (
-                            <TodoRow key={todo.id} todo={todo}/>
-                        ))
+                    { !loading ?
+                        filteredArr.map((todo, idx) => (
+                            <TodoRow key={todo.id} todo={todo} idx={idx}/>
+                        )) :
+                        <Spinner/>
                     }
                 </div>
             </div>
