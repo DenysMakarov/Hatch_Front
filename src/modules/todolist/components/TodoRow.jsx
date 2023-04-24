@@ -32,7 +32,7 @@ const TodoRow = ({todo: {title, id, done}, idx}) => {
     }
 
     return (
-        <div className={`todo-row ${idx%2!==0 ? 'gray-row' : 'light-row'}`}>
+        <div className={`todo-row ${idx%2!==0 ? 'gray-row' : 'light-row'}`} >
             <input type="checkbox" id={`${title}`} name={`${title}`}/>
             <div>
                 {

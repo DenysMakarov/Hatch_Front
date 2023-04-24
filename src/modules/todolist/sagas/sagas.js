@@ -1,4 +1,4 @@
-import {all, call, delay, put, select, takeEvery} from '@redux-saga/core/effects'
+import {call, delay, put, select, takeEvery} from '@redux-saga/core/effects'
 import {
     ADD_TODO,
     DELETE_ALL_TODOS,
@@ -82,8 +82,8 @@ export function* toggleTodoSaga({payload}) {
             undoneTodos.push(doneTodo)
         }
 
-        const sortedUndoneTodos = _.sortBy(undoneTodos, 'title');
-        const sortedDoneTodos = _.sortBy(doneTodos, 'title');
+        const sortedUndoneTodos = undoneTodos.sort((a, b) => a.title.localeCompare(b.title))
+        const sortedDoneTodos = doneTodos.sort((a, b) => a.title.localeCompare(b.title))
 
         yield call(toggleTodo, payload);
         yield put(setTodosAction({...state, doneTodos: sortedDoneTodos, undoneTodos: sortedUndoneTodos}));

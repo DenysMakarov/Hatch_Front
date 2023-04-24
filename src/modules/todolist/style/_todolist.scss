@@ -83,6 +83,10 @@
       width: 100%;
     }
 
+    & input[name="title"] {
+      font-size: 15px;
+    }
+
     & div {
       display: flex;
       position: relative;
@@ -160,11 +164,15 @@
           }
 
           & .todo-row, div {
+            //opacity: 0;
             padding: 15px 20px;
             font-size: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            //animation-name: row-appear;
+            //animation-fill-mode: forwards;
+            //animation-duration: .3s;
 
             @media screen and (max-height: 800px) {
               padding: 10px 20px;

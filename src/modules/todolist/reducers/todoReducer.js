@@ -1,5 +1,3 @@
-// import {SET_ALL_TODOS} from "../constants/constants";
-
 
 import {SET_ALL_TODOS} from "../constants/constants";
 
