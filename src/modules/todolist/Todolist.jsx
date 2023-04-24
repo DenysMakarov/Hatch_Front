@@ -5,7 +5,8 @@ import {Button} from "../../shared/components/Button";
 import Todo from "./components/Todo";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useDispatch, useSelector} from "react-redux";
-import {addTodoAction, deleteAllTodosAction, getTodosAction} from "../../store/actions/todoActions";
+import {addTodoAction, deleteAllTodosAction, getTodosAction} from "./actions/todoActions";
+import {value} from "lodash/seq";
 
 
 /*
@@ -16,7 +17,7 @@ import {addTodoAction, deleteAllTodosAction, getTodosAction} from "../../store/a
 export const Todolist = () => {
 
     const [todo, setTodo] = useState({title: '', done: false})
-    const {doneTodos, undoneTodos, loading} = useSelector(store => store.todoReducer)
+    const {doneTodos, undoneTodos} = useSelector(store => store.todoReducer)
     const [searchText, setSearchText] = useState('')
     const dispatch = useDispatch()
 
@@ -33,13 +34,13 @@ export const Todolist = () => {
         })
     }
 
-
     const handleDeleteAll = () => {
         dispatch(deleteAllTodosAction());
     };
 
     const handleClickTodo = () => {
         dispatch(addTodoAction(todo))
+        setTodo({title: '', done: false})
     }
 
     const handleSearchTodo = (e) => {
@@ -53,7 +54,7 @@ export const Todolist = () => {
             <h2 className={`title`}>Marvelouse v2.0</h2>
             <div className={`input-block`}>
                 <div>
-                    <Input handleChange={handleChangeTodo} name={`title`}/>
+                    <Input handleChange={handleChangeTodo} name={`title`} value={todo.title}/>
                     <Button handleClick={handleClickTodo}/>
                 </div>
                 <Input placeholder={'search'} handleChange={handleSearchTodo}/>

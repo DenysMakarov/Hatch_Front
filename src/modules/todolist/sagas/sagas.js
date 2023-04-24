@@ -1,4 +1,4 @@
-import {all, call, delay, put, select, take, takeEvery} from '@redux-saga/core/effects'
+import {all, call, delay, put, select, takeEvery} from '@redux-saga/core/effects'
 import {
     ADD_TODO,
     DELETE_ALL_TODOS,
@@ -13,17 +13,16 @@ import {
     deleteTodosByID,
     getAllTodos,
     toggleTodo, updateTitleTodo
-} from "../../modules/todolist/service/service";
+} from "../service/todo.service";
 import {setTodosAction} from "../actions/todoActions";
 import _ from "lodash";
 
-
-export function* workerSaga() {
+export function* loadDataSaga() {
     while (true) {
         try {
             const data = yield call(getAllTodos)
             const state = yield select()
-            const {todoReducer: {doneTodos,undoneTodos, loading}} = state
+            const {todoReducer: {doneTodos,undoneTodos}} = state
             if (JSON.stringify(doneTodos) !== JSON.stringify(data.doneTodos) || JSON.stringify(undoneTodos) !== JSON.stringify(data.undoneTodos)) {
                 yield put(setTodosAction({...data, loading: false}))
             }
@@ -119,18 +118,11 @@ export function* deleteTodosByIdSaga({payload}) {
 }
 
 
-// divide to module
-export function* watchClickSaga() {
-    yield takeEvery(GET_TODOS, workerSaga)
+export function* watchTodoSaga() {
+    yield takeEvery(GET_TODOS, loadDataSaga)
     yield takeEvery(DELETE_ALL_TODOS, deleteAllTodosSaga)
     yield takeEvery(DELETE_TODO_BY_ID, deleteTodosByIdSaga)
     yield takeEvery(ADD_TODO, addTodoSaga)
     yield takeEvery(TOGGLE_TODO, toggleTodoSaga)
     yield takeEvery(UPDATE_TITLE_TODO, updateTitleTodoSaga)
-
-}
-
-// divide to store
-export default function* rootSaga() {
-    yield all([watchClickSaga()]);
 }

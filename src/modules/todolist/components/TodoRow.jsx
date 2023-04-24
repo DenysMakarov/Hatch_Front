@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {BiCalendarAlt, BiCalendarCheck} from "react-icons/bi";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useDispatch} from "react-redux";
-import {deleteTodoByIdAction, toggleTodoAction, updateTodoAction} from "../../../store/actions/todoActions";
+import {deleteTodoByIdAction, toggleTodoAction, updateTodoAction} from "../actions/todoActions";
 import {SlPencil} from "react-icons/sl";
 import {IoIosSave} from "react-icons/io";
 
@@ -10,7 +10,7 @@ const TodoRow = ({todo: {title, id, done}, idx}) => {
 
     const [newTitle, setNewTitle] = useState(title)
     const [isUpdate, setIsUpdate] = useState(false)
-
+    const stringSize = 23;
     const dispatch = useDispatch()
 
     const handleDelete = () => {
@@ -32,7 +32,7 @@ const TodoRow = ({todo: {title, id, done}, idx}) => {
     }
 
     return (
-        <div className={`todo-row ${idx%2!==0 ? 'gray-row' : ''}`}>
+        <div className={`todo-row ${idx%2!==0 ? 'gray-row' : 'light-row'}`}>
             <input type="checkbox" id={`${title}`} name={`${title}`}/>
             <div>
                 {
@@ -40,8 +40,8 @@ const TodoRow = ({todo: {title, id, done}, idx}) => {
                 }
                 {
                     isUpdate ?
-                        <input type="text" className={`input-update ${idx%2!==0 ? 'gray-row' : ''}`} onChange={handleChange} value={newTitle}/> :
-                        <label htmlFor={title}>{title.length > 23 ? `${title.slice(0, 22)}...`: title}</label>
+                        <input type="text" className={`input-update ${idx%2!==0 ? 'gray-row' : 'light-row'}`} onChange={handleChange} value={newTitle}/> :
+                        <label htmlFor={title}>{title.length > stringSize ? `${title.slice(0, stringSize-1)}...`: title}</label>
 
                 }
             </div>

@@ -1,4 +1,3 @@
-import './App.scss';
 import {Todolist} from "./modules/todolist";
 
 function App() {

@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
-import {todoReducer} from "./todoReducer";
+import {todoReducer} from "../../modules/todolist/reducers/todoReducer";
 
 
 const rootReducer = combineReducers({
