@@ -6,7 +6,6 @@ import Todo from "./components/Todo";
 import {RiDeleteBin6Line} from "react-icons/ri";
 import {useDispatch, useSelector} from "react-redux";
 import {addTodoAction, deleteAllTodosAction, getTodosAction} from "./actions/todoActions";
-import {value} from "lodash/seq";
 
 
 /*

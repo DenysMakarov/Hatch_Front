@@ -28,7 +28,7 @@ export function* loadDataSaga() {
             yield delay(60000)
         } catch (err) {
             console.error(`Error add todos: ${err.message}`);
-            break;
+            yield delay(5000)
         }
     }
 }

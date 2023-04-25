@@ -42,6 +42,8 @@
     ]
   },
   "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
     "node-sass": "^7.0.3",
     "react-redux": "^8.0.5"
   }
