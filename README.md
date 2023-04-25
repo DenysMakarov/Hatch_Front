@@ -33,6 +33,12 @@
         
         4 Postgres
 
+        5 AWS RDS
+        
+        6 AWS EC2
+        
+        7 AWS Amplify
+
 
 
 ## requirements:
