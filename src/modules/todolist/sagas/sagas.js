@@ -15,20 +15,20 @@ import {
     toggleTodo, updateTitleTodo
 } from "../service/todo.service";
 import {setTodosAction} from "../actions/todoActions";
-import _ from "lodash";
 
 export function* loadDataSaga() {
     while (true) {
         try {
             const data = yield call(getAllTodos)
             const state = yield select()
-            const {todoReducer: {doneTodos,undoneTodos}} = state
+            const {todoReducer: {doneTodos, undoneTodos}} = state
             if (JSON.stringify(doneTodos) !== JSON.stringify(data.doneTodos) || JSON.stringify(undoneTodos) !== JSON.stringify(data.undoneTodos)) {
                 yield put(setTodosAction({...data, loading: false}))
             }
             yield delay(60000)
         } catch (err) {
             console.error(`Error add todos: ${err.message}`);
+            break;
         }
     }
 }
@@ -38,7 +38,7 @@ export function* addTodoSaga({payload}) {
         const state = yield select()
         const {todoReducer: {undoneTodos}} = state
         const response = yield call(addTodo, payload);
-        if (response){
+        if (response) {
             yield put(setTodosAction({
                 ...state,
                 undoneTodos: [...undoneTodos, response].sort((a, b) => a.title.localeCompare(b.title))
@@ -54,7 +54,9 @@ export function* updateTitleTodoSaga({payload: {id, title}}) {
         const {todoReducer: {doneTodos, undoneTodos}} = yield select()
         yield call(updateTitleTodo, id, title);
         let todo = doneTodos.find(t => t.id === id)
-        if (!todo){ todo = undoneTodos.find(t => t.id === id) }
+        if (!todo) {
+            todo = undoneTodos.find(t => t.id === id)
+        }
         todo.title = title
         yield put(setTodosAction({doneTodos, undoneTodos}))
     } catch (error) {
